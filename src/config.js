@@ -1,8 +1,18 @@
 var _ = require('underscore');
 var fs = require('fs');
 
+/**
+ * @param {String|Object} filePath. If param is a String then it is treated as a file path to a config file.
+ * If param is an Object then it is treated as a parsed config file.
+ * @constructor
+ */
 function Config(filePath) {
-  var data = this.parse(filePath);
+  var data;
+  if (_.isObject(filePath)) {
+    data = filePath;
+  } else {
+    data = this.parse(filePath);
+  }
   this.validate(data);
   return Object.freeze(data);
 }
