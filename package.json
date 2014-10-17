@@ -14,10 +14,23 @@
   "bugs": {
     "url": "https://github.com/cargomedia/pulsar-rest-api-client-node/issues"
   },
+  "scripts": {
+    "test": "node_modules/.bin/mocha"
+  },
   "dependencies": {
     "restler": ">=3.1.0",
     "node-sockjs-client": "~1.0.7",
     "underscore": ">=1.5.2",
     "async": "~0.9.0"
+  },
+  "devDependencies": {
+    "chai": "~1.9",
+    "chance": "~0.6",
+    "express": "~4.9",
+    "mocha": "~1.21",
+    "pulsar-rest-api": "git://github.com/cargomedia/pulsar-rest-api#0.1.0",
+    "sinon": "~1.10.3",
+    "sinon-chai": "~2.6.0",
+    "sockjs": "~0.3"
   }
 }
