@@ -1,0 +1,23 @@
+{
+  "name": "pulsar-rest-api-client-node",
+  "description": "",
+  "version": "0.0.1",
+  "author": "Cargomedia",
+  "license": "MIT",
+  "keywords": [
+    "pulsar"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:cargomedia/pulsar-rest-api-client-node.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cargomedia/pulsar-rest-api-client-node/issues"
+  },
+  "dependencies": {
+    "restler": ">=3.1.0",
+    "node-sockjs-client": "~1.0.7",
+    "underscore": ">=1.5.2",
+    "async": "~0.9.0"
+  }
+}
