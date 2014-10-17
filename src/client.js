@@ -7,7 +7,7 @@ function Client(url, token) {
 }
 
 Client.prototype.runJob = function(job) {
-  return this._rest.post("/" + job.app + "/" + job.env, {
+  this._rest.post("/" + job.app + "/" + job.env, {
     data: {task: job.task}
   }).on('complete', function(jobData) {
     if (jobData.id) {

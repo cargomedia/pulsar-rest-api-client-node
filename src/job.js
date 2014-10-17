@@ -18,8 +18,7 @@ Job.prototype.setData = function(jobData) {
 };
 
 Job.prototype.toString = function() {
-  var result;
-  result = "" + this.task + " '" + this.app + "' to '" + this.env + "'";
+  var result = util.format('%s "%s" to "%s"', this.task, this.app, this.env);
   if (this.data.id) {
     result += ' id: ' + this.data.id;
   }
