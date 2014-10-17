@@ -62,4 +62,4 @@ PulsarApi.prototype._getClientName = function(app, env) {
   return name;
 };
 
-module.exports = new PulsarApi();
+module.exports = PulsarApi;
