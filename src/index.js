@@ -2,6 +2,7 @@ var _ = require('underscore');
 var async = require('async');
 var Config = require('./config');
 var Client = require('./client');
+var Job = require('./job');
 
 /**
  * @see Config.
@@ -27,6 +28,10 @@ PulsarApi.prototype.getClient = function(app, env) {
   } else {
     return this.getClientDefault();
   }
+};
+
+PulsarApi.prototype.createJob = function(app, env, task) {
+  return new Job(app, env, task);
 };
 
 PulsarApi.prototype.runJob = function(job) {

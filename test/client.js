@@ -1,6 +1,5 @@
 var config = require('./config');
 var Helpers = require('./helpers');
-var PulsarJob = require('../src/job');
 var PulsarApi = require('../src');
 var PulsarServerJob = require('../node_modules/pulsar-rest-api/lib/pulsar/job');
 
@@ -17,7 +16,7 @@ describe('tests of pulsar API', function() {
   it('Single instance', function(done) {
     Helpers.createServer(config.single);
     var pulsarApi = new PulsarApi(config.single);
-    var job = new PulsarJob('app', 'env', 'task');
+    var job = pulsarApi.createJob('app', 'env', 'task');
 
 
     var createSpy = sinon.spy(function() {
