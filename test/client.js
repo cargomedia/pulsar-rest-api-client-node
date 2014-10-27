@@ -21,20 +21,20 @@ describe('tests of pulsar API', function() {
 
     var createSpy = sinon.spy(function() {
       job.data.status.should.equal(PulsarServerJob.STATUS.CREATED);
+      job.data.id.should.be.above(0);
     });
     job.on('create', createSpy);
 
 
     var changeSpy = sinon.spy(function() {
       createSpy.should.have.been.calledOnce;
-      //job.data.status.should.equal(PulsarServerJob.STATUS.RUNNING);
+      job.data.status.should.equal(PulsarServerJob.STATUS.RUNNING);
     });
     job.on('change', changeSpy);
 
-    job.on('finish', function() {
+    job.on('close', function() {
       changeSpy.should.have.been.called;
       job.data.status.should.equal(PulsarServerJob.STATUS.FINISHED);
-      job.data.id.should.be.above(0);
       done();
     });
 

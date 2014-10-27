@@ -51,13 +51,14 @@ function WebsocketMock(server) {
 }
 
 WebsocketMock.prototype.addJob = function(job) {
-  job.on('change', this.emitChange.bind(this, job));
+  job.on('change', this.emit.bind(this, job, 'job.change'));
+  job.on('close', this.emit.bind(this, job, 'job.close'));
 };
 
-WebsocketMock.prototype.emitChange = function(job) {
+WebsocketMock.prototype.emit = function(job, event) {
   for (var i = this.connectionList.length - 1; i >= 0; i--) {
     this.connectionList[i].write(JSON.stringify({
-      event: 'job.change',
+      event: event,
       job: job
     }));
   }
@@ -75,9 +76,10 @@ function PulsarJobMock() {
     self.emit('change');
   }, 1000);
   setTimeout(function() {
-    self.status = PulsarJob.STATUS.FINISHED;
     self.output += chance.sentence();
     self.emit('change');
+    self.status = PulsarJob.STATUS.FINISHED;
+    self.emit('close');
   }, 2000);
   EventEmitter.call(this);
 }
