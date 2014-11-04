@@ -26,10 +26,13 @@ Websocket.prototype.connect = function(url, authToken) {
       }
       job.setData(jobData);
 
-      if (data.event === 'job.change') {
-        this.updateJob(job);
-      } else if (data.event === 'job.close') {
-        this.closeJob(job);
+      switch (data.event) {
+        case 'job.change':
+          this.updateJob(job);
+          break;
+        case 'job.close':
+          this.closeJob(job);
+          break;
       }
     }
   }.bind(this);
