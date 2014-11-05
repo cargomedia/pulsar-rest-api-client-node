@@ -27,7 +27,7 @@ Config.prototype.parse = function(filePath) {
 Config.prototype.validate = function(data) {
   this._validateApiInstance(data);
   return _.each(data.auxiliary, function(api, apiName) {
-    if (!/^\w+\/\w+$/i.test(apiName)) {
+    if (!/^\w+\/\w*$/i.test(apiName)) {
       throw new Error("Wrong pulsarApi auxiliary API name: '" + apiName + "'. The acceptable format is: [{application}/{environment}].");
     }
     return this._validateApiInstance(api, apiName);

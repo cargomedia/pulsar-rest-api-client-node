@@ -20,6 +20,7 @@ Client.prototype.runJob = function(job) {
   }.bind(this)).on('error', function(error) {
     return job.emit('error', error);
   }).on('fail', function(error) {
+    console.log(error);
     return job.emit('error', error);
   });
 };
