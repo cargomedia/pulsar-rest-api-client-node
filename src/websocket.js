@@ -2,7 +2,6 @@ var SockJS = require('node-sockjs-client');
 
 function Websocket(apiUrl, apiAuthToken) {
   this._jobList = {};
-  this._jobOutputList = {};
   this.connect(apiUrl + '/websocket', apiAuthToken);
 }
 
@@ -43,14 +42,11 @@ Websocket.prototype._isJobEvent = function(event) {
 };
 
 Websocket.prototype.updateJob = function(job) {
-  var lastSentPosition = this._jobOutputList[job.data.id] || 0;
-  job.emit('change', job.data.output.substring(lastSentPosition));
-  this._jobOutputList[job.data.id] = job.data.output.length - 1;
+  job.emit('change');
 };
 
 Websocket.prototype.closeJob = function(job) {
   delete this._jobList[job.data.id];
-  delete this._jobOutputList[job.data.id];
   job.emit('close');
 };
 
