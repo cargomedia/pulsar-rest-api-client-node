@@ -67,16 +67,19 @@ WebsocketMock.prototype.emit = function(job, event) {
 function PulsarJobMock() {
   this.id = chance.natural();
   this.status = PulsarJob.STATUS.CREATED;
+  this.stdout = '';
   this.output = '';
 
   var self = this;
   setTimeout(function() {
     self.status = PulsarJob.STATUS.RUNNING;
-    self.output += chance.sentence();
+    self.stdout += chance.sentence();
+    self.output = self.stdout;
     self.emit('change');
   }, 1000);
   setTimeout(function() {
-    self.output += chance.sentence();
+    self.stdout += chance.sentence();
+    self.output = self.stdout;
     self.emit('change');
     self.status = PulsarJob.STATUS.FINISHED;
     self.emit('close');
@@ -87,7 +90,7 @@ function PulsarJobMock() {
 util.inherits(PulsarJobMock, EventEmitter);
 
 PulsarJobMock.prototype.getData = function() {
-  return _.pick(this, 'id', 'status', 'output');
+  return _.pick(this, 'id', 'status', 'stdout', 'output');
 };
 
 module.exports = ServerMock;
