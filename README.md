@@ -16,12 +16,12 @@ var PulsarApiClient = require('pulsar-rest-api-client-node');
 var pulsarApi = new PulsarApiClient(config);
 var job = pulsarApi.createJob('example', 'production', 'deploy');
 pulsarApi.runJob(job);
-pulsarApi.jobs(function(jobList){})
+pulsarApi.jobs(function(jobList){
+  console.log(jobList);
+})
 ```
 
-## API
-
-### Constructor / new PulsarApiClient(config)
+## Configuration
 **config**: can be a file path to the file with config parameters in `JSON` format or a hash object that contains config parameters. Config parameters have the next format:
 
 ```json
@@ -55,15 +55,5 @@ pulsarApi.jobs(function(jobList){})
 }
 ```
 
-### createJob(app, env, task)
-
-**app**: String. Required. Application name.
-**env**: String. Required. Environment name, e.g. stage.
-**task**: String. Required. Capistrano task. 
-Returns instance of `Job`. See [the Job's source file](src/job.js).
-
-### runJob(job)
-**job**: Job. Required. See [createJob above](###createJob).
-
-### jobs(callback)
-**callback**: function(jobList). Required. jobList is an array of Job instances.  
+##API
+Please read [jsdoc](src/index.js)
