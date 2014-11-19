@@ -1,28 +1,13 @@
 var _ = require('underscore');
-var fs = require('fs');
 
 /**
- * @param {String|Object} filePath. If param is a String then it is treated as a file path to a config file.
- * If param is an Object then it is treated as a parsed config file.
+ * @param {Object} data.
  * @constructor
  */
-function Config(filePath) {
-  var data;
-  if (_.isObject(filePath)) {
-    data = filePath;
-  } else {
-    data = this.parse(filePath);
-  }
+function Config(data) {
   this.validate(data);
   return Object.freeze(data);
 }
-
-Config.prototype.parse = function(filePath) {
-  var content = fs.readFileSync(filePath, {
-    encoding: 'utf8'
-  });
-  return JSON.parse(content);
-};
 
 Config.prototype.validate = function(data) {
   this._validateApiInstance(data);

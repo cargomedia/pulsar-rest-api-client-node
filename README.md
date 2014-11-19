@@ -22,7 +22,7 @@ pulsarApi.jobs(function(jobList){
 ```
 
 ## Configuration
-**config**: can be a file path to the file with config parameters in `JSON` format or a hash object that contains config parameters. Config parameters have the next format:
+**config**: Hash object that contains config parameters. Config parameters have the next format:
 
 ```json
 {

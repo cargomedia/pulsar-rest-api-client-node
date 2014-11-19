@@ -5,10 +5,10 @@ var Client = require('./client');
 var Job = require('./job');
 
 /**
- * @see Config.
+ * @param {Object} configData @see Config.
  */
-function PulsarApi(configFilePath) {
-  var config = new Config(configFilePath);
+function PulsarApi(configData) {
+  var config = new Config(configData);
   this._clientDefault = new Client(config.url, config.authToken);
 
   this._clientMap = {};
