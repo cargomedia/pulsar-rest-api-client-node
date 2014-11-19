@@ -56,4 +56,4 @@ pulsarApi.jobs(function(jobList){
 ```
 
 ##API
-Please read [jsdoc](src/index.js)
+Our node source code is fully documented using jsdoc. Using proper IDE with code-completion will aid your coding experience. Otherwise browse source-code.
