@@ -30,8 +30,8 @@ PulsarApi.prototype.getClient = function(app, env) {
   }
 };
 
-PulsarApi.prototype.createJob = function(app, env, task) {
-  return new Job(app, env, task);
+PulsarApi.prototype.createJob = function(app, env, task, taskVariables) {
+  return new Job(app, env, task, taskVariables);
 };
 
 PulsarApi.prototype.runJob = function(job) {

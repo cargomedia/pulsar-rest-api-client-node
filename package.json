@@ -28,6 +28,7 @@
     "chai": "~1.9",
     "chance": "~0.6",
     "express": "~4.9",
+    "body-parser": "~1.8",
     "mocha": "~1.21",
     "pulsar-rest-api": "~0.1",
     "sinon": "~1.10.3",
