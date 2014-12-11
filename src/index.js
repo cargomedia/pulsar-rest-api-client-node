@@ -17,10 +17,18 @@ function PulsarApi(configData) {
   }.bind(this));
 }
 
+/**
+ * @returns {Client}
+ */
 PulsarApi.prototype.getClientDefault = function() {
   return this._clientDefault;
 };
 
+/**
+ * @param {String} app
+ * @param {String} env
+ * @returns {Client}
+ */
 PulsarApi.prototype.getClient = function(app, env) {
   var name = this._getClientName(app, env);
   if (this._clientMap[name]) {
@@ -30,15 +38,32 @@ PulsarApi.prototype.getClient = function(app, env) {
   }
 };
 
-PulsarApi.prototype.createJob = function(app, env, task) {
-  return new Job(app, env, task);
+/**
+ * @param {String} app
+ * @param {String} env
+ * @param {String} task
+ * @param {Object} taskVariables
+ * @returns {Job}
+ */
+PulsarApi.prototype.createJob = function(app, env, task, taskVariables) {
+  return new Job(app, env, task, taskVariables);
 };
 
+/**
+ * @param {Job} job
+ */
 PulsarApi.prototype.runJob = function(job) {
   var client = this.getClient(job.app, job.env);
   client.runJob(job);
 };
 
+/**
+ * @callback PulsarApi~jobsCallback
+ * @param {PulsarJob[]} jobs
+ */
+/**
+ * @param {PulsarApi~jobsCallback} callback
+ */
 PulsarApi.prototype.jobs = function(callback) {
   var clientList = _.toArray(this._clientMap);
   clientList.unshift(this._clientDefault);
@@ -56,6 +81,12 @@ PulsarApi.prototype.jobs = function(callback) {
   });
 };
 
+/**
+ * @param {String} app
+ * @param {String} env
+ * @returns {string}
+ * @private
+ */
 PulsarApi.prototype._getClientName = function(app, env) {
   var name = '';
   if (app) {
