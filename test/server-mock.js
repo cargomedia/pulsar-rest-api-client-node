@@ -5,6 +5,7 @@ var _ = require('underscore');
 var util = require('util');
 var EventEmitter = require('events').EventEmitter;
 var express = require('express');
+var bodyParser = require('body-parser');
 var sockjs = require('sockjs');
 var http = require('http');
 var Chance = require('chance');
@@ -14,6 +15,8 @@ var PulsarJob = require('../node_modules/pulsar-rest-api/lib/pulsar/job');
 function ServerMock(port) {
   var app = express();
   var router = express.Router();
+  app.use(bodyParser.urlencoded({extended: false}));
+  app.use(bodyParser.json());
   app.use(router);
   var server = http.createServer(app);
   var jobList = {};
@@ -25,6 +28,7 @@ function ServerMock(port) {
   }
 
   router.post('/:app/:env', function(req, res) {
+    server.emit('job.create', {req: req, res: res});
     var job = new PulsarJobMock();
     addJob(job);
     res.send(job.getData());
@@ -35,6 +39,7 @@ function ServerMock(port) {
   });
 
   server.listen(port);
+  return server;
 }
 
 function WebsocketMock(server) {
