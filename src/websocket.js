@@ -50,7 +50,7 @@ Websocket.prototype.closeJob = function(job) {
   if ('FINISHED' === job.data.status) {
     job.emit('success');
   } else {
-    job.emit('error');
+    job.emit('error', 'Job finished with status `' + job.data.status + '`.');
   }
 };
 
