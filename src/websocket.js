@@ -47,7 +47,11 @@ Websocket.prototype.updateJob = function(job) {
 
 Websocket.prototype.closeJob = function(job) {
   delete this._jobList[job.data.id];
-  job.emit('close');
+  if ('FINISHED' === job.data.status) {
+    job.emit('success');
+  } else {
+    job.emit('error');
+  }
 };
 
 Websocket.prototype.addJob = function(job) {
