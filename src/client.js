@@ -25,20 +25,22 @@ Client.prototype.runJob = function(job) {
     headers: {
       'Content-Type': 'application/json'
     }
-  }).on('complete', function(jobData) {
-    if (jobData.id) {
-      job.setData(jobData);
-      this._websocket.addJob(job);
-      return job.emit('create');
-    } else {
-      return job.emit('error', 'Got empty job id. Job was not created.');
-    }
-  }.bind(this)).on('error', function(error) {
-    return job.emit('error', error);
-  }).on('fail', function(error) {
-    console.log(error);
-    return job.emit('error', error);
-  });
+  })
+    .on('complete', function(jobData) {
+      if (jobData.id) {
+        job.setData(jobData);
+        this._websocket.addJob(job);
+        return job.emit('create');
+      } else {
+        return job.emit('error', 'Got empty job id. Job was not created.');
+      }
+    }.bind(this))
+    .on('error', function(error) {
+      return job.emit('error', error);
+    })
+    .on('fail', function(error) {
+      return job.emit('error', error);
+    });
 };
 
 Client.prototype.jobs = function(callback) {
