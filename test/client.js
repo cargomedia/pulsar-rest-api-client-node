@@ -24,7 +24,7 @@ function testJobExecution(pulsarApi, job, done) {
   });
   job.on('change', changeSpy);
 
-  job.on('close', function() {
+  job.on('success', function() {
     changeSpy.should.have.been.called;
     job.data.status.should.equal(PulsarServerJob.STATUS.FINISHED);
     done();

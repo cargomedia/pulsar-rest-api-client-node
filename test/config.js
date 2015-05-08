@@ -3,16 +3,16 @@ module.exports = {
     url: 'http://localhost:10031'
   },
   multiple: {
-    url: 'http://localhost:100032',
+    url: 'http://localhost:10032',
     auxiliary: {
       'alice/production': {
-        url: 'http://localhost:100033'
+        url: 'http://localhost:10033'
       },
       'alice/staging': {
-        url: 'http://localhost:100034'
+        url: 'http://localhost:10034'
       },
       'bob/': {
-        url: 'http://localhost:100034'
+        url: 'http://localhost:10034'
       }
     }
   }
