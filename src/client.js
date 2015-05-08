@@ -26,7 +26,7 @@ Client.prototype.runJob = function(job) {
       'Content-Type': 'application/json'
     }
   })
-    .on('complete', function(jobData) {
+    .on('success', function(jobData, response) {
       if (jobData.id) {
         job.setData(jobData);
         this._websocket.addJob(job);
@@ -35,11 +35,11 @@ Client.prototype.runJob = function(job) {
         return job.emit('error', 'Got empty job id. Job was not created.');
       }
     }.bind(this))
-    .on('error', function(error) {
+    .on('error', function(error, response) {
       return job.emit('error', error);
     })
-    .on('fail', function(error) {
-      return job.emit('error', error);
+    .on('fail', function(data, response) {
+      return job.emit('error', response.statusCode + ': ' + response.statusMessage);
     });
 };
 
