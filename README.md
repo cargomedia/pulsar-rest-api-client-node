@@ -1,15 +1,10 @@
-[![Build Status](https://travis-ci.org/cargomedia/pulsar-rest-api-client-node.png?branch=master)](https://travis-ci.org/cargomedia/pulsar-rest-api-client-node)
-
-(unstable, currently in development)
-
-pulsar-rest-api-client-node
+pulsar-rest-api-client-node [![Build Status](https://travis-ci.org/cargomedia/pulsar-rest-api-client-node.svg?branch=master)](https://travis-ci.org/cargomedia/pulsar-rest-api-client-node)
 ===========================
-
-## About
 
 This is ["Pulsar REST API service"](https://github.com/cargomedia/pulsar-rest-api) client in `node.js`.
 
-## Usage
+Usage
+-----
 
 ```js
 var PulsarApiClient = require('pulsar-rest-api-client-node');
@@ -21,7 +16,8 @@ pulsarApi.jobs(function(jobList){
 })
 ```
 
-## Configuration
+Configuration
+-------------
 **config**: Hash object that contains config parameters. Config parameters have the next format:
 
 ```json
@@ -55,5 +51,6 @@ pulsarApi.jobs(function(jobList){
 }
 ```
 
-##API
+API
+---
 Our node source code is fully documented using jsdoc. Using proper IDE with code-completion will aid your coding experience. Otherwise browse source-code.
