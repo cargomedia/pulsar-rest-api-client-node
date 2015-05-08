@@ -35,7 +35,7 @@ function testJobExecution(pulsarApi, job, done) {
 
 describe('tests of pulsar API', function() {
 
-  this.timeout(4000);
+  this.timeout(8000);
   var server;
 
   afterEach(function(done) {
