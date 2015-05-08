@@ -22,25 +22,52 @@ function ServerMock(port) {
   var jobList = {};
   var websocket = new WebsocketMock(server);
 
+  var openSockets = [];
+  server.on('connection', function(socket) {
+    openSockets.push(socket);
+  });
+
   function addJob(job) {
     jobList[job.id] = job;
     websocket.addJob(job);
   }
 
   router.post('/:app/:env', function(req, res) {
-    server.emit('job.create', {req: req, res: res});
+    this.emit('job.create', {req: req, res: res});
     var job = new PulsarJobMock();
     addJob(job);
     res.send(job.getData());
-  });
+  }.bind(this));
 
   router.get('/jobs', function(req, res) {
     res.send(JSON.stringify(jobList));
   });
 
   server.listen(port);
-  return server;
+  this.serverHttp = server;
+  this.serverWebsocket = websocket;
+  this.openSockets = openSockets;
 }
+
+util.inherits(ServerMock, EventEmitter);
+
+/**
+ * @returns {WebsocketMock}
+ */
+ServerMock.prototype.getWebsocketServer = function() {
+  return this.serverWebsocket;
+};
+
+/**
+ * @param {Function} callback
+ * @returns {WebsocketMock}
+ */
+ServerMock.prototype.close = function(callback) {
+  this.serverHttp.close(callback);
+  _.each(this.openSockets, function(socket) {
+    socket.destroy();
+  });
+};
 
 function WebsocketMock(server) {
   var sockjsServer = sockjs.createServer();
@@ -67,6 +94,12 @@ WebsocketMock.prototype.emit = function(job, event) {
       job: job
     }));
   }
+};
+
+WebsocketMock.prototype.disconnectAllClients = function() {
+  this.connectionList.forEach(function(connection) {
+    connection.end();
+  });
 };
 
 function PulsarJobMock() {

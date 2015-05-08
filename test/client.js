@@ -44,9 +44,6 @@ describe('tests of pulsar API', function() {
         done();
         server = null;
       });
-      _.each(server.openSockets, function(socket) {
-        socket.destroy();
-      });
     } else {
       done();
     }

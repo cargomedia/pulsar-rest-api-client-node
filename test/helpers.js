@@ -10,14 +10,7 @@ Helpers.getConfigPort = function(url) {
 };
 
 Helpers.createServer = function(config) {
-  var server = new ServerMock(Helpers.getConfigPort(config.url));
-  server.on('connection', function(socket) {
-    if (!server.openSockets) {
-      server.openSockets = [];
-    }
-    server.openSockets.push(socket);
-  });
-  return server;
+  return new ServerMock(Helpers.getConfigPort(config.url));
 };
 
 module.exports = Helpers;
