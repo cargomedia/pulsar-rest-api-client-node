@@ -24,7 +24,7 @@ function testJobExecution(pulsarApi, job, done) {
   });
   job.on('change', changeSpy);
 
-  job.on('close', function() {
+  job.on('success', function() {
     changeSpy.should.have.been.called;
     job.data.status.should.equal(PulsarServerJob.STATUS.FINISHED);
     done();
@@ -35,7 +35,7 @@ function testJobExecution(pulsarApi, job, done) {
 
 describe('tests of pulsar API', function() {
 
-  this.timeout(4000);
+  this.timeout(8000);
   var server;
 
   afterEach(function(done) {
@@ -43,9 +43,6 @@ describe('tests of pulsar API', function() {
       server.close(function() {
         done();
         server = null;
-      });
-      _.each(server.openSockets, function(socket) {
-        socket.destroy();
       });
     } else {
       done();
@@ -86,6 +83,26 @@ describe('tests of pulsar API', function() {
     var job = pulsarApi.createJob(app, env, 'task');
 
     testJobExecution(pulsarApi, job, done);
+  });
+
+  it('Should reconnect to WebSocket server', function(done) {
+    server = Helpers.createServer(config.single);
+    var pulsarApi = new PulsarApi(config.single);
+    var job = pulsarApi.createJob('app', 'env', 'task');
+
+    var changeSpy = sinon.spy(function() {
+      job.data.status.should.equal(PulsarServerJob.STATUS.RUNNING);
+      server.getWebsocketServer().disconnectAllClients();
+    });
+    job.on('change', changeSpy);
+
+    job.on('success', function() {
+      changeSpy.should.have.been.called;
+      job.data.status.should.equal(PulsarServerJob.STATUS.FINISHED);
+      done();
+    });
+
+    pulsarApi.runJob(job);
   });
 
 });
