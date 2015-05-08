@@ -1,4 +1,4 @@
-var SockJS = require('node-sockjs-client');
+var SockJS = require('sockjs-client');
 
 function Websocket(apiUrl, apiAuthToken) {
   this._jobList = {};
