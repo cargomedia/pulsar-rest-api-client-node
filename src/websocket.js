@@ -35,6 +35,10 @@ Websocket.prototype.connect = function(url, authToken) {
       }
     }
   }.bind(this);
+
+  sock.onclose = function() {
+    this.connect(url, authToken);
+  }.bind(this);
 };
 
 Websocket.prototype._isJobEvent = function(event) {

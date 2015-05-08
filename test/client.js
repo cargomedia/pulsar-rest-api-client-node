@@ -85,4 +85,24 @@ describe('tests of pulsar API', function() {
     testJobExecution(pulsarApi, job, done);
   });
 
+  it('Should reconnect to WebSocket server', function(done) {
+    server = Helpers.createServer(config.single);
+    var pulsarApi = new PulsarApi(config.single);
+    var job = pulsarApi.createJob('app', 'env', 'task');
+
+    var changeSpy = sinon.spy(function() {
+      job.data.status.should.equal(PulsarServerJob.STATUS.RUNNING);
+      server.getWebsocketServer().disconnectAllClients();
+    });
+    job.on('change', changeSpy);
+
+    job.on('success', function() {
+      changeSpy.should.have.been.called;
+      job.data.status.should.equal(PulsarServerJob.STATUS.FINISHED);
+      done();
+    });
+
+    pulsarApi.runJob(job);
+  });
+
 });
