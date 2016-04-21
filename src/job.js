@@ -30,6 +30,9 @@ Job.prototype.setData = function(jobData) {
   return _.extend(this.data, jobData);
 };
 
+/**
+ * @returns {boolean}
+ */
 Job.prototype.isRunning = function() {
   return this.data.status == PulsarJob.STATUS.RUNNING;
 };
