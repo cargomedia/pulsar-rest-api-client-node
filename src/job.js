@@ -1,7 +1,7 @@
 var util = require('util');
 var _ = require('underscore');
 var EventEmitter = require('events').EventEmitter;
-var PulsarJob = require('../node_modules/pulsar-rest-api/lib/pulsar/job');
+var PulsarJob = require('pulsar-rest-api/lib/pulsar/job');
 
 /**
  * @param {String} app
