@@ -1,6 +1,7 @@
 var util = require('util');
 var _ = require('underscore');
 var EventEmitter = require('events').EventEmitter;
+var PulsarJob = require('pulsar-rest-api/lib/pulsar/job');
 
 /**
  * @param {String} app
@@ -27,6 +28,13 @@ util.inherits(Job, EventEmitter);
  */
 Job.prototype.setData = function(jobData) {
   return _.extend(this.data, jobData);
+};
+
+/**
+ * @returns {boolean}
+ */
+Job.prototype.isRunning = function() {
+  return this.data.status == PulsarJob.STATUS.RUNNING;
 };
 
 Job.prototype.toString = function() {

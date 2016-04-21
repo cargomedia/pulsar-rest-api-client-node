@@ -1,7 +1,7 @@
 {
   "name": "pulsar-rest-api-client-node",
   "description": "",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "author": "Cargomedia",
   "license": "MIT",
   "main": "./src/index",
@@ -22,6 +22,7 @@
     "restler": "~3.2",
     "node-sockjs-client": "~1.0.7",
     "underscore": "~1.7",
+    "pulsar-rest-api": "~0.5.0",
     "async": "~0.9.0"
   },
   "devDependencies": {
@@ -30,7 +31,6 @@
     "express": "~4.9",
     "body-parser": "~1.8",
     "mocha": "~1.21",
-    "pulsar-rest-api": "~0.1",
     "sinon": "~1.10.3",
     "sinon-chai": "~2.6.0",
     "sockjs": "~0.3"

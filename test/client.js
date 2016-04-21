@@ -2,7 +2,7 @@ var _ = require('underscore');
 var config = require('./config');
 var Helpers = require('./helpers');
 var PulsarApi = require('../src');
-var PulsarServerJob = require('../node_modules/pulsar-rest-api/lib/pulsar/job');
+var PulsarServerJob = require('pulsar-rest-api/lib/pulsar/job');
 
 var chai = require("chai");
 var sinon = require("sinon");
