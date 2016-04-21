@@ -22,4 +22,14 @@ describe('Job tests', function() {
     assert.isTrue(job.isRunning());
   });
 
+  it('toString works', function() {
+    var data = {id: 'id'};
+    job.setData(data);
+    var serializedJob = job + '';
+    assert.include(serializedJob, job.app);
+    assert.include(serializedJob, job.env);
+    assert.include(serializedJob, job.task);
+    assert.include(serializedJob, data.id);
+  });
+
 });
