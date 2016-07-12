@@ -5,7 +5,7 @@ deploy:
   provider: npm
   email: tech@cargomedia.ch
   api_key:
-    secure: Z+sZpHbRJudJZA3adAPq8tayJdBmYSH383B1ae8cRKuJqT/mHY4ZhLZ2fvsNCLTR/4WwiThFDp6eNdtbUl7peiIwbEc1jsqMWL/xlgmfX56eiaznZhpaq7m65Es+8KGABhRyobRqFQfYwMnfoTkN+T1mvK0eHdDgNWfX9iev9cA=
+    secure: MpfrbbYf4AOfgR7gfYLg5mQ4JbBFnyA4gdkPjQedUQChFX8uKFaWuYPwj53tRdyP9icGQCilHDmfvyGyvgNNxhfixPnNtslK2BdXZtjvlKGxrYJzYkLYqFhp0whqBvfrMM4w8S1EVWmgyyCQfpv6HPvE4DysyUdCDYPklqwz0HQ=
   on:
     tags: true
     repo: cargomedia/pulsar-rest-api-client-node
