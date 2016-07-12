@@ -3,9 +3,7 @@ pulsar-rest-api-client-node [![Build Status](https://travis-ci.org/cargomedia/pu
 
 This is ["Pulsar REST API service"](https://github.com/cargomedia/pulsar-rest-api) client in `node.js`.
 
-Usage
------
-
+## Usage
 ```js
 var PulsarApiClient = require('pulsar-rest-api-client-node');
 var pulsarApi = new PulsarApiClient(config);
@@ -16,8 +14,7 @@ pulsarApi.jobs(function(jobList){
 })
 ```
 
-Configuration
--------------
+## Configuration
 **config**: Hash object that contains config parameters. Config parameters have the next format:
 
 ```json
@@ -63,6 +60,17 @@ If we add also an additional server for `example`/`staging`:
 }
 ```
 
-API
----
+## API
 Our node source code is fully documented using jsdoc. Using proper IDE with code-completion will aid your coding experience. Otherwise browse source-code.
+
+## Test
+To run tests just use `npm test`.
+
+## Release
+ - update package.json with a new version
+ - release a new git tag with the updated package.json
+
+After that the npm release should be done automatically. If it didn't happen then release it manually:
+```
+npm publish https://github.com/cargomedia/pulsar-rest-api-client-node/archive/<GitTagWithUpdatedPackageJson>.tar.gz
+```
