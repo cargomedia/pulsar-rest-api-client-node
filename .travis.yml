@@ -1,3 +1,11 @@
 language: node_js
 node_js:
-  - "0.10"
+- '5'
+deploy:
+  provider: npm
+  email: tech@cargomedia.ch
+  api_key:
+    secure: MpfrbbYf4AOfgR7gfYLg5mQ4JbBFnyA4gdkPjQedUQChFX8uKFaWuYPwj53tRdyP9icGQCilHDmfvyGyvgNNxhfixPnNtslK2BdXZtjvlKGxrYJzYkLYqFhp0whqBvfrMM4w8S1EVWmgyyCQfpv6HPvE4DysyUdCDYPklqwz0HQ=
+  on:
+    tags: true
+    repo: cargomedia/pulsar-rest-api-client-node
