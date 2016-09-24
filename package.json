@@ -19,11 +19,12 @@
     "test": "node_modules/.bin/mocha"
   },
   "dependencies": {
-    "restler": "~3.2",
+    "async": "~0.9.0",
     "node-sockjs-client": "~1.0.7",
-    "underscore": "~1.7",
     "pulsar-rest-api": "~0.5.0",
-    "async": "~0.9.0"
+    "request": "^2.75.0",
+    "request-promise": "^4.1.1",
+    "underscore": "~1.7"
   },
   "devDependencies": {
     "chai": "~1.9",

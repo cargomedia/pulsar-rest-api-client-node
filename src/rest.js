@@ -1,15 +1,32 @@
 var util = require('util');
 var RestlerService = require('restler').Service;
+var requestPromise = require('request-promise');
 
 function Rest(url, token) {
-  var defaults = {};
-  defaults.baseURL = url;
+  this._url = url;
   if (token) {
-    defaults.username = token;
-    defaults.password = 'x-oauth-basic';
+    this._token = token;
   }
-  RestlerService.call(this, defaults);
 }
+
+/**
+ * @param {String} url
+ * @param {Object} options
+ * @returns {Promise}
+ */
+Rest.prototype.request = function(url, options) {
+  var permanentOptions = {
+    uri: this._url + url
+  };
+  if (this._token) {
+    permanentOptions['auth'] = {
+      user: this._token,
+      pass: 'x-oauth-basic',
+      sendImmediately: true
+    };
+  }
+  return requestPromise(Object.assign({}, options, permanentOptions));
+};
 
 util.inherits(Rest, RestlerService);
 

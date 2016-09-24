@@ -20,13 +20,12 @@ Client.prototype.runJob = function(job) {
   if (job.taskVariables && !_.isEmpty(job.taskVariables)) {
     postData.taskVariables = job.taskVariables;
   }
-  this._rest.post("/" + job.app + "/" + job.env, {
-    data: JSON.stringify(postData),
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-    .on('success', function(jobData, response) {
+  this._rest.request("/" + job.app + "/" + job.env, {
+      method: 'POST',
+      body: postData,
+      json: true
+    })
+    .then(function(jobData) {
       if (jobData.id) {
         job.setData(jobData);
         this._websocket.addJob(job);
@@ -35,18 +34,16 @@ Client.prototype.runJob = function(job) {
         return job.emit('error', 'Got empty job id. Job was not created.');
       }
     }.bind(this))
-    .on('error', function(error, response) {
+    .catch(function(error) {
       return job.emit('error', error);
-    })
-    .on('fail', function(data, response) {
-      return job.emit('error', response.statusCode + ': ' + response.statusMessage);
     });
 };
 
-Client.prototype.jobs = function(callback) {
-  return this._rest.get('/jobs').on('complete', function(jobs) {
-    return callback(jobs);
-  });
+/**
+ * @returns {Promise}
+ */
+Client.prototype.jobs = function() {
+  return this._rest.request('/jobs');
 };
 
 module.exports = Client;
