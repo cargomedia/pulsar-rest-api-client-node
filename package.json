@@ -16,7 +16,7 @@
     "url": "https://github.com/cargomedia/pulsar-rest-api-client-node/issues"
   },
   "scripts": {
-    "test": "node_modules/.bin/mocha"
+    "test": "$(npm bin)/mocha"
   },
   "dependencies": {
     "bluebird": "^3.4.6",
@@ -27,11 +27,11 @@
     "underscore": "~1.7"
   },
   "devDependencies": {
-    "chai": "~1.9",
+    "body-parser": "~1.8",
+    "chai": "^3.5.0",
     "chance": "~0.6",
     "express": "~4.9",
-    "body-parser": "~1.8",
-    "mocha": "~1.21",
+    "mocha": "^3.0.2",
     "sinon": "~1.10.3",
     "sinon-chai": "~2.6.0",
     "sockjs": "~0.3"
