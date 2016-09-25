@@ -1,5 +1,4 @@
 var util = require('util');
-var RestlerService = require('restler').Service;
 var requestPromise = require('request-promise');
 
 function Rest(url, token) {
@@ -27,7 +26,5 @@ Rest.prototype.request = function(url, options) {
   }
   return requestPromise(Object.assign({}, options, permanentOptions));
 };
-
-util.inherits(Rest, RestlerService);
 
 module.exports = Rest;
