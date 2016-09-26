@@ -1,4 +1,4 @@
-var util = require('util');
+var _ = require('underscore');
 var requestPromise = require('request-promise');
 
 function Rest(url, token) {
@@ -24,7 +24,7 @@ Rest.prototype.request = function(url, options) {
       sendImmediately: true
     };
   }
-  return requestPromise(Object.assign({}, options, permanentOptions));
+  return requestPromise(_.extend({}, options, permanentOptions));
 };
 
 module.exports = Rest;
