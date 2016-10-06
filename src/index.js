@@ -10,10 +10,14 @@ var Job = require('./job');
 function PulsarApi(configData) {
   var config = new Config(configData);
   this._clientDefault = new Client(config.url, config.authToken);
+  this._clientDefault.connect();
 
   this._clientMap = {};
   _.each(config.auxiliary, function(clientConfig, key) {
-    return this._clientMap[key] = new Client(clientConfig.url, clientConfig.authToken);
+    var client = new Client(clientConfig.url, clientConfig.authToken);
+    client.connect();
+    this._clientMap[key] = client;
+    return client;
   }.bind(this));
 }
 

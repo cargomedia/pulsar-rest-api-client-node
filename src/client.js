@@ -13,6 +13,13 @@ function Client(url, token) {
 }
 
 /**
+ * @returns {Promise}
+ */
+Client.prototype.connect = function() {
+  return this._websocket.connect();
+};
+
+/**
  * @param {Job} job
  */
 Client.prototype.runJob = function(job) {

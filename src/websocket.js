@@ -1,12 +1,19 @@
 var SockJS = require('node-sockjs-client');
 
-function Websocket(apiUrl, apiAuthToken) {
+function Websocket(apiUrl, authToken) {
   this._jobList = {};
-  this.connect(apiUrl + '/websocket', apiAuthToken);
+  this._url = apiUrl + '/websocket';
+  this._authToken = authToken;
 }
 
-Websocket.prototype.connect = function(url, authToken) {
+/**
+ * @return {Promise}
+ */
+Websocket.prototype.connect = function() {
+  var url = this._url;
+  var authToken = this._authToken;
   var sock = new SockJS(url);
+
   sock.onopen = function() {
     if (authToken) {
       sock.send(JSON.stringify({
@@ -37,7 +44,7 @@ Websocket.prototype.connect = function(url, authToken) {
   }.bind(this);
 
   sock.onclose = function(error) {
-    this.connect(url, authToken);
+    this.connect();
   }.bind(this);
 };
 
