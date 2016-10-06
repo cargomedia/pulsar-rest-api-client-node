@@ -55,10 +55,11 @@ PulsarApi.prototype.createJob = function(app, env, task, taskVariables) {
 
 /**
  * @param {Job} job
+ * @return {Promise}
  */
 PulsarApi.prototype.runJob = function(job) {
   var client = this.getClient(job.app, job.env);
-  client.runJob(job);
+  return client.runJob(job);
 };
 
 /**
