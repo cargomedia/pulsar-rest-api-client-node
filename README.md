@@ -9,7 +9,7 @@ var PulsarApiClient = require('pulsar-rest-api-client-node');
 var pulsarApi = new PulsarApiClient(config);
 var job = pulsarApi.createJob('example', 'production', 'deploy');
 pulsarApi.runJob(job);
-pulsarApi.jobs(function(jobList){
+pulsarApi.jobs().then(function(jobList){
   console.log(jobList);
 })
 ```

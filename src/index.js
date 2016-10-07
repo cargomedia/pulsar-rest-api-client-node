@@ -1,5 +1,5 @@
 var _ = require('underscore');
-var async = require('async');
+var Promise = require('bluebird');
 var Config = require('./config');
 var Client = require('./client');
 var Job = require('./job');
@@ -58,26 +58,18 @@ PulsarApi.prototype.runJob = function(job) {
 };
 
 /**
- * @callback PulsarApi~jobsCallback
- * @param {PulsarJob[]} jobs
+ * @return {Promise}
  */
-/**
- * @param {PulsarApi~jobsCallback} callback
- */
-PulsarApi.prototype.jobs = function(callback) {
+PulsarApi.prototype.jobs = function() {
   var clientList = _.toArray(this._clientMap);
   clientList.unshift(this._clientDefault);
 
-  var getClientJobs = function(client, callback) {
-    return client.jobs(callback);
-  };
-
-  return async.map(clientList, getClientJobs, function(results) {
-    var concatenator = function(all, items) {
+  return Promise.map(clientList, function(client) {
+    return client.jobs();
+  }).then(function(listOfJobList) {
+    return _.reduce(listOfJobList, function(all, items) {
       return all.concat(items);
-    };
-    var jobs = _.reduce(results, concatenator, []);
-    return callback(jobs);
+    }, []);
   });
 };
 
