@@ -43,6 +43,38 @@ describe('Client tests', function() {
 
   });
 
+  context('killJob', function() {
+
+    it('resolves if job contains data.id', function() {
+      var job = new Job('app', 'env', 'task');
+      job.data.id = 'id-1';
+      var client = new Client('', '');
+
+      sinon.stub(client._rest, 'request', function(url, options) {
+        assert.equal(url, '/job/id-1/kill');
+        return Promise.resolve();
+      });
+
+      return client.killJob(job);
+    });
+
+    it('rejects if job does not contain data.id', function() {
+      var job = new Job('app', 'env', 'task');
+      var client = new Client('', '');
+
+      return client.killJob(job)
+        .then(
+          function() {
+            throw new Error('client.killJob must fail in this test');
+          },
+          function(error) {
+            assert.equal(error.message + '', 'Invalid job');
+          }
+        );
+    });
+
+  });
+
   context('jobs', function() {
     it('it directly returns response from url', function() {
       var client = new Client('', '');

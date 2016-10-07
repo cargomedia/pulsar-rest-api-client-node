@@ -63,6 +63,15 @@ PulsarApi.prototype.runJob = function(job) {
 };
 
 /**
+ * @param {Job} job
+ * @return {Promise}
+ */
+PulsarApi.prototype.killJob = function(job) {
+  var client = this.getClient(job.app, job.env);
+  return client.killJob(job);
+};
+
+/**
  * @return {Promise}
  */
 PulsarApi.prototype.jobs = function() {
