@@ -11,6 +11,9 @@ var job = pulsarApi.createJob('example', 'production', 'deploy');
 pulsarApi.runJob(job).then(function(job){});
 pulsarApi.jobs().then(function(jobList){
   console.log(jobList);
+  pulsarApi.killJob(job).then(function(job){
+    console.log(job + ' has been killed');
+  });
 })
 ```
 
