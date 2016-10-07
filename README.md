@@ -8,7 +8,7 @@ This is ["Pulsar REST API service"](https://github.com/cargomedia/pulsar-rest-ap
 var PulsarApiClient = require('pulsar-rest-api-client-node');
 var pulsarApi = new PulsarApiClient(config);
 var job = pulsarApi.createJob('example', 'production', 'deploy');
-pulsarApi.runJob(job);
+pulsarApi.runJob(job).then(function(job){});
 pulsarApi.jobs().then(function(jobList){
   console.log(jobList);
 })
