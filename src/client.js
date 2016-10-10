@@ -1,4 +1,5 @@
 var _ = require('underscore');
+var Promise = require('bluebird');
 var Rest = require('./rest');
 var Websocket = require('./websocket');
 
@@ -45,8 +46,19 @@ Client.prototype.runJob = function(job) {
 };
 
 /**
+ *
+ * @param {Job} job
  * @returns {Promise}
  */
+Client.prototype.killJob = function(job) {
+  if (!job || !job.data || !job.data.id) {
+    return Promise.reject(new Error('Invalid job'));
+  }
+  return this._rest.request("/job/" + job.data.id + "/kill", {
+    method: 'POST'
+  });
+};
+
 Client.prototype.jobs = function() {
   return this._rest.request('/jobs');
 };
