@@ -38,11 +38,18 @@ Client.prototype.runJob = function(job) {
       if (jobData.id) {
         job.setData(jobData);
         this._websocket.addJob(job);
+        job.emit('create');
         return job;
       } else {
-        throw new Error('Got empty job id. Job was not created.');
+        var error = new Error('Got empty job id. Job was not created.');
+        job.emit('error', error);
+        throw error;
       }
-    }.bind(this));
+    }.bind(this))
+    .catch(function(error) {
+      job.emit('error', error);
+      throw error;
+    });
 };
 
 /**
