@@ -1,7 +1,7 @@
 {
   "name": "pulsar-rest-api-client-node",
   "description": "",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "author": "Cargomedia",
   "license": "MIT",
   "main": "./src/index",
