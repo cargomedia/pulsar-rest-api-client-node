@@ -22,6 +22,12 @@ describe('Job tests', function() {
     assert.isTrue(job.isRunning());
   });
 
+  it('isCreated works', function() {
+    assert.isFalse(job.isCreated());
+    job.setData({status: PulsarServerJob.STATUS.CREATED});
+    assert.isTrue(job.isCreated());
+  });
+
   it('toString works', function() {
     var data = {id: 'id'};
     job.setData(data);

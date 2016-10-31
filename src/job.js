@@ -37,6 +37,13 @@ Job.prototype.isRunning = function() {
   return this.data.status == PulsarJob.STATUS.RUNNING;
 };
 
+/**
+ * @returns {boolean}
+ */
+Job.prototype.isCreated = function() {
+  return this.data.status == PulsarJob.STATUS.CREATED;
+};
+
 Job.prototype.toString = function() {
   var result = util.format('%s "%s" to "%s"', this.task, this.app, this.env);
   if (this.data.id) {
