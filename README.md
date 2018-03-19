@@ -1,3 +1,8 @@
+UNMAINTAINED
+============
+This project is not maintained anymore.
+If you want to take over contact us at tech@cargomedia.ch.
+
 pulsar-rest-api-client-node [![Build Status](https://travis-ci.org/cargomedia/pulsar-rest-api-client-node.svg?branch=master)](https://travis-ci.org/cargomedia/pulsar-rest-api-client-node)
 ===========================
 
